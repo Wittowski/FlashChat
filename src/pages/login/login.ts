@@ -30,4 +30,7 @@ export class LoginPage {
     modal.present();
   }
 
+  Login(username,password) {
+    
+  }
 }

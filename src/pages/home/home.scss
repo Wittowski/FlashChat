@@ -2,16 +2,12 @@ page-home {
 
 }
 
-ion-row {
-     margin-left: auto;
-     margin-right: auto;
-}
-
 #logo {
-    margin-left: 80px;
-    margin-right: 80px;
-    padding-top: 100px;
+    padding-top: 60px;
     color: #ffff00;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
 }
 
 #logo-img {
@@ -19,6 +15,7 @@ ion-row {
     height: 200px;
 }
 
-#navigator {
-    padding-top: 80px;
+#logo-label {
+    width: 100%;
+    text-align: center;
 }
