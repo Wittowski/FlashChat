@@ -7,17 +7,18 @@
 </ion-header>
 <ion-grid padding>
   <ion-row id="input-auth">
-    <ion-list>
-      <ion-item>
-        <ion-input type="text" placeholder="Email"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input type="password" placeholder="Password"></ion-input>
-      </ion-item>
-    </ion-list>
-  </ion-row>
-  <ion-row id="navigator">
-    <a (click)="CreateAccount()"><strong>Create an account ?</strong></a>
-    <button ion-button color="secondary" (click)="Login()">Login</button>
+    <form novalidate [formGroup]="loginForm" (ngSubmit)="login()">
+      <ion-list>
+        <ion-item>
+          <ion-input formControlName="email" type="text" placeholder="Email"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input formControlName="password" type="password" placeholder="Password"></ion-input>
+        </ion-item>
+      </ion-list>
+          <button ion-button color="secondary" type="submit" [disabled]="!loginForm.valid" block>Login</button>
+          <div padding></div>
+          <a (click)="CreateAccount()"><strong>Create an account ?</strong></a>
+    </form>
   </ion-row>
 </ion-grid>

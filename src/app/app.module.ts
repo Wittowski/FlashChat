@@ -1,8 +1,11 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 
-import { LoginService } from '../providers/login-service'
+//provider 
+import { AuthService } from '../providers/authService'
+import { RegisterService } from '../providers/registerService'
 
+//page
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
@@ -36,6 +39,6 @@ import { ChatPage } from '../pages/chat/chat';
     MainPage,
     ChatPage
   ],
-  providers: [LoginService, {provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [AuthService, RegisterService, {provide: ErrorHandler, useClass: IonicErrorHandler}]
 })
 export class AppModule {}
