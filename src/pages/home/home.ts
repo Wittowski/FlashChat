@@ -1,24 +1,47 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
+//Page
 import { LoginPage } from '../login/login';
 import { SnmInstructionPage } from '../snm-instruction/snm-instruction';
-/*
-  Generated class for the Home page.
+import { MainPage } from '../main/main';
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
+  id: string;
+  username: string;
+  email: string;
+  
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public storage: Storage
+  ) {
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad HomePage');
+    storage.ready().then(() => {
+      //get username from storage
+      storage.get('id').then((val) => {
+        this.id = val;
+      })
+      //get username from storage
+      storage.get('username').then((val) => {
+        this.username = val;
+      })
+      //get email from storage
+      storage.get('email').then((val) => {
+        this.email = val;
+        if (this.id != undefined && this.username != undefined && this.email != undefined) {
+          this.navCtrl.setRoot(MainPage);
+        }
+      })
+    });
+
+
   }
 
   GoLogin() {

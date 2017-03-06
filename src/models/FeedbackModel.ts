@@ -1,4 +1,4 @@
-export class AuthModel {
+export class FeedbackModel {
     constructor(
         public status,
         public data,

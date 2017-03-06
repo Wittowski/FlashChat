@@ -14,7 +14,7 @@ import {
 } from 'ionic-angular';
 
 import { RegisterService } from '../../providers/registerService';
-import { AuthModel } from '../../models/AuthModel';
+import { FeedbackModel } from '../../models/FeedbackModel';
 
 @Component({
   selector: 'page-register',
@@ -28,7 +28,7 @@ export class RegisterPage {
   password: FormControl;
   repassword: FormControl;
   errorMessage: string;
-  data: AuthModel;
+  data: FeedbackModel;
 
   constructor(
     public navCtrl: NavController,
@@ -51,10 +51,6 @@ export class RegisterPage {
       'password': this.password,
       'repassword': this.repassword
     });
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad RegisterPage');
   }
 
   //validate email by use Regular Expression

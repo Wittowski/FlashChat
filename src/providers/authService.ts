@@ -6,15 +6,15 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/Observable/throw';
-import { AuthModel } from '../models/AuthModel';
+import { FeedbackModel } from '../models/FeedbackModel';
 
 @Injectable()
 export class AuthService {
 
   constructor(public http: Http) { }
 
-  //function login provide 2 parameter and return AuthModel data
-  public login(email: string, password: string): Observable<AuthModel> {
+  //function login provide 2 parameter and return FeedbackModel data
+  public login(email: string, password: string): Observable<FeedbackModel> {
 
     let AuthHeader = new Headers();
     AuthHeader.append('Content-Type', 'application/json'); //define header

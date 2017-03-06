@@ -1,18 +1,57 @@
 <ion-header>
   <ion-navbar>
-    <button ion-button menuToggle>
+    <ion-title>{{username}}</ion-title>
+    <button ion-button menuToggle right>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Page One</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h3>Ionic Menu Starter</h3>
-
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
-
-  <button ion-button secondary menuToggle>Toggle Menu</button>
-</ion-content>
+<ion-grid padding>
+  <ion-row id="segment-header">
+    <ion-segment [(ngModel)]="mainmenu">
+      <ion-segment-button selected value="profile">
+        Profile
+      </ion-segment-button>
+      <ion-segment-button value="message">
+        Message
+      </ion-segment-button>
+      <ion-segment-button value="search">
+        Search
+      </ion-segment-button>
+    </ion-segment>
+  </ion-row>
+  <ion-row id="segment-content">
+    <div [ngSwitch]="mainmenu">
+      <ion-list *ngSwitchCase="'profile'">
+        <!--profile-->
+        <p>ID : {{id}}</p>
+        <p>Username : {{username}}</p>
+        <p>Email : {{email}}</p>
+        <button ion-button color="secondary" (click)="logout()">Logout</button>
+      </ion-list>
+      <ion-list *ngSwitchCase="'message'">
+        <!--message-->
+        <ion-item>
+          <p><strong>User</strong></p>
+          <p>This town ain't big enough for the two of us!</p>
+          <p item-right>3:43 pm</p>
+        </ion-item>
+        <ion-item>
+          <p><strong>User2</strong></p>
+          <p>This town ain't big enough for the two of us!</p>
+          <p item-right>3:43 pm</p>
+        </ion-item>
+      </ion-list>
+      <ion-list *ngSwitchCase="'search'">
+        <!--search -->
+        <form novalidate [formGroup]="searchForm" (ngSubmit)="search()">
+          <ion-item>
+            <ion-input formControlName="user" type="text" placeholder="Username"></ion-input>
+          </ion-item>
+          <button ion-button color="secondary" type="submit" [disabled]="!searchForm.valid" block>Search</button>
+        </form>
+      </ion-list>
+    </div>
+  </ion-row>
+</ion-grid>

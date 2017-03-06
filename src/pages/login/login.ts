@@ -1,23 +1,25 @@
 import { Component } from '@angular/core';
+import { Storage } from '@ionic/storage';
+import {
+  NavController,
+  NavParams,
+  LoadingController,
+  AlertController,
+} from 'ionic-angular';
 import {
   FormGroup,
   FormBuilder,
   FormControl,
   Validators
 } from '@angular/forms';
-import {
-  NavController,
-  NavParams,
-  ModalController,
-  LoadingController,
-  AlertController
-} from 'ionic-angular';
 
+//Provider
 import { AuthService } from '../../providers/authService';
-import { AuthModel } from '../../models/AuthModel';
+import { FeedbackModel } from '../../models/FeedbackModel';
 
-import { ModalPage } from './modal-page';
+//Page
 import { RegisterPage } from '../register/register';
+import { HomePage } from '../home/home';
 
 @Component({
   selector: 'page-login',
@@ -29,7 +31,7 @@ export class LoginPage {
   email: FormControl;
   password: FormControl;
   errorMessage: string;
-  data: AuthModel;
+  data: FeedbackModel;
 
   constructor(
     public navCtrl: NavController,
@@ -37,7 +39,8 @@ export class LoginPage {
     public loadingCtrl: LoadingController,
     public alertCtrl: AlertController,
     public fb: FormBuilder,
-    public AuthService: AuthService
+    public AuthService: AuthService,
+    public storage: Storage
   ) {
     //validate form such as required, minLength
     this.email = fb.control('', Validators.compose([
@@ -50,10 +53,6 @@ export class LoginPage {
       'email': this.email,
       'password': this.password
     });
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad HomePage');
   }
 
   //validate email by use Regular Expression
@@ -69,7 +68,7 @@ export class LoginPage {
     let password = this.loginForm.controls['password'].value;
     //show loading controller
     let loader = this.loadingCtrl.create({
-      content: "Loging in..."
+      content: "Loging In..."
     });
     loader.present();
     //call provider (AuthService)
@@ -77,19 +76,22 @@ export class LoginPage {
       res => {
         this.data = res; //get json data from provider (Backend)
         if (this.data.status === 'ok') {
-          let alert = this.alertCtrl.create({
-            title: this.data.data,
-            buttons: ['OK']
+          this.loginForm.reset();  //reset form
+          this.storage.ready().then(() => {
+            let UserData = JSON.parse(this.data.data);
+            this.storage.set('id', UserData.id);
+            this.storage.set('username', UserData.username);
+            this.storage.set('email', UserData.email);
+            this.navCtrl.setRoot(HomePage);
           });
-          //console.log('signup ok');
-          alert.present();
-          this.loginForm.reset(); //reset form
+          
+          //console.log('login ok');
         } else { //if status = 'error'
           let alert = this.alertCtrl.create({
             title: this.data.data,
             buttons: ['OK']
           });
-          // console.log('signup not ok');
+          // console.log('login failed');
           alert.present();
         }
       },
