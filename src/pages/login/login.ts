@@ -17,6 +17,7 @@ import {
 import { AuthService } from '../../providers/authService';
 import { FeedbackModel } from '../../models/FeedbackModel';
 
+
 //Page
 import { RegisterPage } from '../register/register';
 import { HomePage } from '../home/home';
@@ -32,6 +33,7 @@ export class LoginPage {
   password: FormControl;
   errorMessage: string;
   data: FeedbackModel;
+  username: string;
 
   constructor(
     public navCtrl: NavController,
@@ -76,16 +78,18 @@ export class LoginPage {
       res => {
         this.data = res; //get json data from provider (Backend)
         if (this.data.status === 'ok') {
+
           this.loginForm.reset();  //reset form
           this.storage.ready().then(() => {
+            console.log(this.data.data);
             let UserData = JSON.parse(this.data.data);
             this.storage.set('id', UserData.id);
             this.storage.set('username', UserData.username);
             this.storage.set('email', UserData.email);
             this.navCtrl.setRoot(HomePage);
           });
-          
           //console.log('login ok');
+          
         } else { //if status = 'error'
           let alert = this.alertCtrl.create({
             title: this.data.data,

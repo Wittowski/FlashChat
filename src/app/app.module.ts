@@ -3,9 +3,9 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 //provider 
-import { AuthService } from '../providers/authService'
-import { RegisterService } from '../providers/registerService'
-import { SearchService } from '../providers/searchService'
+import { AuthService } from '../providers/authService';
+import { RegisterService } from '../providers/registerService';
+import { SearchService } from '../providers/searchService';
 
 //page
 import { MyApp } from './app.component';

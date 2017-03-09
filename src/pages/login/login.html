@@ -15,7 +15,7 @@
           <ion-input formControlName="password" type="password" placeholder="Password"></ion-input>
         </ion-item>
       </ion-list>
-          <button ion-button color="secondary" type="submit" [disabled]="!loginForm.valid" block>Login</button>
+          <button ion-button type="submit" [disabled]="!loginForm.valid" block>Login</button>
           <div padding></div>
           <a (click)="CreateAccount()"><strong>Create an account ?</strong></a>
     </form>

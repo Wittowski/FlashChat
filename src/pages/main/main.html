@@ -1,12 +1,3 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>{{username}}</ion-title>
-    <button ion-button menuToggle right>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-  </ion-navbar>
-</ion-header>
-
 <ion-grid padding>
   <ion-row id="segment-header">
     <ion-segment [(ngModel)]="mainmenu">
@@ -16,8 +7,8 @@
       <ion-segment-button value="message">
         Message
       </ion-segment-button>
-      <ion-segment-button value="search">
-        Search
+      <ion-segment-button value="contact">
+        Contacts
       </ion-segment-button>
     </ion-segment>
   </ion-row>
@@ -28,29 +19,19 @@
         <p>ID : {{id}}</p>
         <p>Username : {{username}}</p>
         <p>Email : {{email}}</p>
-        <button ion-button color="secondary" (click)="logout()">Logout</button>
+        <button ion-button (click)="logout()">Logout</button>
       </ion-list>
       <ion-list *ngSwitchCase="'message'">
         <!--message-->
-        <ion-item>
-          <p><strong>User</strong></p>
-          <p>This town ain't big enough for the two of us!</p>
-          <p item-right>3:43 pm</p>
-        </ion-item>
-        <ion-item>
-          <p><strong>User2</strong></p>
-          <p>This town ain't big enough for the two of us!</p>
+        <ion-item *ngFor="let contact of contacts">
+          <p><strong>{{contact.username}}</strong></p>
+          <p>{{contact.email}}</p>
           <p item-right>3:43 pm</p>
         </ion-item>
       </ion-list>
-      <ion-list *ngSwitchCase="'search'">
+      <ion-list *ngSwitchCase="'contact'">
         <!--search -->
-        <form novalidate [formGroup]="searchForm" (ngSubmit)="search()">
-          <ion-item>
-            <ion-input formControlName="user" type="text" placeholder="Username"></ion-input>
-          </ion-item>
-          <button ion-button color="secondary" type="submit" [disabled]="!searchForm.valid" block>Search</button>
-        </form>
+          <button ion-item *ngFor="let contact of contacts">{{contact.username}}</button>
       </ion-list>
     </div>
   </ion-row>
